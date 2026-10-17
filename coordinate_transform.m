@@ -16,21 +16,9 @@ end
 fprintf("Matrix is orthogonal\n")
 end
 %% Define standard basis in 3D
-Z{1} = [1,0,0];
-Z{2} = [0,1,0];
-Z{3} = [0,0,1];
-
-% Plot basis
-figure(1); clf; 
-for i = 1:3
-quiver3(0,0,0,Z{i}(1),Z{i}(2),Z{i}(3),AutoScale="off",Color="Black",LineWidth=2)
-hold on
-end
-axis equal
-xlabel("Z_1")
-ylabel("Z_2")
-zlabel("Z_3")
-fontsize(18,"points")
+Z{1} = [1;0;0];
+Z{2} = [0;1;0];
+Z{3} = [0;0;1];
 
 %% Rotate 30 deg cc about Z3
 phi = deg2rad(-30);
@@ -50,6 +38,28 @@ a = rot_Z3(phi);
 fprintf("Matrix for 30 deg ccw rot about Z_3'.\n")
 disp(a')
 check_orthogonal(a')
+
+%% Plot standard basis and transformed basis (30 deg ccw rot about Z_3)
+a = rot_Z3(deg2rad(-30));
+
+Zp{1} = a*Z{1};
+Zp{2} = a*Z{2};
+Zp{3} = a*Z{3};
+
+%% Plot original basis and transformed basis
+figure(1); clf; 
+for i = 1:3
+quiver3(0,0,0,Z{i}(1),Z{i}(2),Z{i}(3),AutoScale="off",Color="Black",LineWidth=2)
+quiver3(0,0,0,Zp{i}(1),Zp{i}(2),Zp{i}(3),AutoScale="off",Color="Magenta",LineWidth=2)
+hold on
+end
+axis equal
+xlabel("Z_1")
+ylabel("Z_2")
+zlabel("Z_3")
+fontsize(18,"points")
+
+
 
 
 
